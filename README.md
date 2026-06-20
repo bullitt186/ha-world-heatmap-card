@@ -9,6 +9,12 @@ The card reads a single entity whose attributes contain a `points` array of
 not call any backend service or fetch its own data; any integration that
 exposes points this way works.
 
+| `dark` (default) | `muted` | `light` |
+|:---:|:---:|:---:|
+| ![dark map style](docs/screenshots/map-style-dark.png) | ![muted map style](docs/screenshots/map-style-muted.png) | ![light map style](docs/screenshots/map-style-light.png) |
+
+See [Map styles](#map-styles) for the full list, including `contrast` and `grid`.
+
 ## Install
 
 ### HACS
@@ -73,7 +79,7 @@ visual editor — open it from the dashboard's card picker, no YAML required.
 | floor | number | `0.32` | Minimum normalized intensity (`0.0`–`0.6`) so low-volume points stay visible. |
 | show_title | boolean | `false` | Display the card title. |
 | show_bounds | boolean | `false` | Display the computed crop bounds, useful for debugging. |
-| map_image_url | string | built-in equirectangular map | Override the background map image. |
+| map_image_url | string | bundled equirectangular map | Override the background map image. |
 
 #### Map styles
 
@@ -128,6 +134,15 @@ visual editor — open it from the dashboard's card picker, no YAML required.
 
 Only `lat`, `lon`, and `value` are read; other fields are ignored. See
 [docs/SPEC.md](docs/SPEC.md) for the full specification.
+
+## Credits
+
+The default background map, `src/assets/world-map.jpg`, is
+[Equirectangular_projection_SW.jpg](https://commons.wikimedia.org/wiki/File:Equirectangular_projection_SW.jpg)
+by [Strebe](https://commons.wikimedia.org/wiki/user:Strebe), licensed under
+[CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). It's bundled
+unmodified; override it per-card with `map_image_url` if you need a different
+license.
 
 ## Development
 

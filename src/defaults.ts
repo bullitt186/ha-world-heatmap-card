@@ -1,3 +1,5 @@
+import worldMap from "./assets/world-map.jpg";
+
 import type { WorldHeatmapCardConfig } from "./types";
 
 export const DEFAULT_CONFIG = {
@@ -14,8 +16,7 @@ export const DEFAULT_CONFIG = {
   show_bounds: false,
 } satisfies Partial<WorldHeatmapCardConfig>;
 
-export const DEFAULT_MAP_IMAGE_URL =
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Equirectangular_projection_SW.jpg/1280px-Equirectangular_projection_SW.jpg";
+export const DEFAULT_MAP_IMAGE_URL = worldMap;
 
 export function normalizeConfig(
   config: WorldHeatmapCardConfig,
