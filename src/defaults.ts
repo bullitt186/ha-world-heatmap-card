@@ -2,17 +2,14 @@ import type { WorldHeatmapCardConfig } from "./types";
 
 export const DEFAULT_CONFIG = {
   points_attribute: "points",
-  max_attribute: "max",
-  window_start_attribute: "window_start",
-  window_end_attribute: "window_end",
   map_style: "dark",
   crop: "threats_xy",
   scale: "log",
+  color_theme: "default",
   radius: 24,
   blur: 14,
   opacity: 0.16,
   floor: 0.32,
-  height: 360,
   show_title: false,
   show_bounds: false,
 } satisfies Partial<WorldHeatmapCardConfig>;
@@ -37,6 +34,5 @@ export function normalizeConfig(
     blur: Number(config.blur ?? DEFAULT_CONFIG.blur),
     opacity: Number(config.opacity ?? DEFAULT_CONFIG.opacity),
     floor: Number(config.floor ?? DEFAULT_CONFIG.floor),
-    height: config.height ?? DEFAULT_CONFIG.height,
   };
 }

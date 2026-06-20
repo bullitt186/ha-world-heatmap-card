@@ -4,7 +4,7 @@ declare module "simpleheat" {
     max(max: number): SimpleHeat;
     radius(radius: number, blur?: number): SimpleHeat;
     gradient(gradient: Record<number, string>): SimpleHeat;
-    resize(): SimpleHeat;
+    resize(): void;
     draw(minOpacity?: number): SimpleHeat;
   }
 

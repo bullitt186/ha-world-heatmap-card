@@ -9,7 +9,14 @@ const SELECT_OPTIONS = {
   map_style: ["dark", "muted", "contrast", "light", "grid"],
   crop: ["threats_xy", "threats_lat", "world", "no_antarctica", "temperate"],
   scale: ["log", "sqrt", "linear"],
+  color_theme: ["default", "reds", "yellows", "greens", "blues", "oranges", "purples"],
 };
+
+function selectOf(options: string[]) {
+  return {
+    select: { mode: "dropdown", options: options.map((value) => ({ value, label: value })) },
+  };
+}
 
 export class WorldHeatmapCardEditor extends LitElement {
   static styles = cardStyles;
@@ -17,12 +24,11 @@ export class WorldHeatmapCardEditor extends LitElement {
   @state()
   private config?: WorldHeatmapCardConfig;
 
+  @state()
+  private hass?: HomeAssistantLike;
+
   setConfig(config: WorldHeatmapCardConfig): void {
     this.config = { ...DEFAULT_CONFIG, ...config };
-  }
-
-  set hass(_value: HomeAssistantLike) {
-    // Kept for Home Assistant editor lifecycle compatibility.
   }
 
   protected render() {
@@ -30,90 +36,49 @@ export class WorldHeatmapCardEditor extends LitElement {
 
     return html`
       <div class="editor">
-        ${this.textField("Entity", "entity")}
-        ${this.textField("Title", "title")}
-        ${this.selectField("Map style", "map_style", SELECT_OPTIONS.map_style)}
-        ${this.selectField("Crop", "crop", SELECT_OPTIONS.crop)}
-        ${this.selectField("Scale", "scale", SELECT_OPTIONS.scale)}
-        ${this.numberField("Radius", "radius", 4, 80, 1)}
-        ${this.numberField("Blur", "blur", 0, 80, 1)}
-        ${this.numberField("Opacity", "opacity", 0, 0.4, 0.01)}
-        ${this.numberField("Floor", "floor", 0, 0.6, 0.01)}
-        ${this.textField("Height", "height")}
-        ${this.textField("Map image URL", "map_image_url")}
-        ${this.checkboxField("Show title", "show_title")}
-        ${this.checkboxField("Show bounds", "show_bounds")}
+        ${this.selectorField("Entity", "entity", { entity: {} })}
+        ${this.selectorField("Title", "title", { text: {} })}
+        ${this.selectorField("Map style", "map_style", selectOf(SELECT_OPTIONS.map_style))}
+        ${this.selectorField("Crop", "crop", selectOf(SELECT_OPTIONS.crop))}
+        ${this.selectorField("Scale", "scale", selectOf(SELECT_OPTIONS.scale))}
+        ${this.selectorField("Color theme", "color_theme", selectOf(SELECT_OPTIONS.color_theme))}
+        ${this.selectorField("Radius", "radius", { number: { min: 4, max: 80, step: 1, mode: "slider" } })}
+        ${this.selectorField("Blur", "blur", { number: { min: 0, max: 80, step: 1, mode: "slider" } })}
+        ${this.selectorField("Opacity", "opacity", { number: { min: 0, max: 0.4, step: 0.01, mode: "slider" } })}
+        ${this.selectorField("Floor", "floor", { number: { min: 0, max: 0.6, step: 0.01, mode: "slider" } })}
+        ${this.selectorField("Map image URL", "map_image_url", { text: {} })}
+        ${this.switchField("Show title", "show_title")}
+        ${this.switchField("Show bounds", "show_bounds")}
       </div>
     `;
   }
 
-  private textField(label: string, key: keyof WorldHeatmapCardConfig) {
-    return html`
-      <div class="field">
-        <label>${label}</label>
-        <input
-          .value=${String(this.config?.[key] ?? "")}
-          @input=${(event: Event) =>
-            this.updateConfig(key, (event.target as HTMLInputElement).value)}
-        />
-      </div>
-    `;
-  }
-
-  private numberField(
+  private selectorField(
     label: string,
     key: keyof WorldHeatmapCardConfig,
-    min: number,
-    max: number,
-    step: number,
+    selector: Record<string, unknown>,
   ) {
     return html`
-      <div class="field">
-        <label>${label}</label>
-        <input
-          type="number"
-          min=${min}
-          max=${max}
-          step=${step}
-          .value=${String(this.config?.[key] ?? "")}
-          @input=${(event: Event) =>
-            this.updateConfig(key, Number((event.target as HTMLInputElement).value))}
-        />
-      </div>
+      <ha-selector
+        .hass=${this.hass}
+        .selector=${selector}
+        .value=${this.config?.[key] ?? ""}
+        .label=${label}
+        @value-changed=${(event: CustomEvent) =>
+          this.updateConfig(key, event.detail.value)}
+      ></ha-selector>
     `;
   }
 
-  private selectField(
-    label: string,
-    key: keyof WorldHeatmapCardConfig,
-    options: string[],
-  ) {
+  private switchField(label: string, key: keyof WorldHeatmapCardConfig) {
     return html`
-      <div class="field">
-        <label>${label}</label>
-        <select
-          .value=${String(this.config?.[key] ?? "")}
-          @change=${(event: Event) =>
-            this.updateConfig(key, (event.target as HTMLSelectElement).value)}
-        >
-          ${options.map(
-            (option) => html`<option value=${option}>${option}</option>`,
-          )}
-        </select>
-      </div>
-    `;
-  }
-
-  private checkboxField(label: string, key: keyof WorldHeatmapCardConfig) {
-    return html`
-      <label>
-        <input
-          type="checkbox"
+      <label class="switch-row">
+        <ha-switch
           .checked=${Boolean(this.config?.[key])}
           @change=${(event: Event) =>
             this.updateConfig(key, (event.target as HTMLInputElement).checked)}
-        />
-        ${label}
+        ></ha-switch>
+        <span>${label}</span>
       </label>
     `;
   }

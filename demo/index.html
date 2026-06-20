@@ -23,15 +23,14 @@
     </style>
   </head>
   <body>
-    <main>
-      <world-heatmap-card></world-heatmap-card>
-    </main>
+    <main id="main"></main>
     <script type="module" src="/src/world-heatmap-card.ts"></script>
     <script type="module">
       const data = await fetch("/demo/sample-data.json").then((response) =>
         response.json(),
       );
-      const card = document.querySelector("world-heatmap-card");
+      await customElements.whenDefined("world-heatmap-card");
+      const card = document.createElement("world-heatmap-card");
       card.setConfig({
         type: "custom:world-heatmap-card",
         entity: "sensor.demo_heatmap",
@@ -42,7 +41,6 @@
         blur: 14,
         opacity: 0.16,
         floor: 0.32,
-        height: 420,
         show_bounds: true,
       });
       card.hass = {
@@ -53,6 +51,7 @@
           },
         },
       };
+      document.getElementById("main").appendChild(card);
     </script>
   </body>
 </html>

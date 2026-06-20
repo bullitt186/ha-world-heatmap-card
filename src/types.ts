@@ -9,22 +9,28 @@ export type CropMode =
 
 export type ScaleMode = "log" | "sqrt" | "linear";
 
+export type ColorTheme =
+  | "default"
+  | "reds"
+  | "yellows"
+  | "greens"
+  | "blues"
+  | "oranges"
+  | "purples";
+
 export interface WorldHeatmapCardConfig {
   type: string;
   entity: string;
   title?: string;
   points_attribute?: string;
-  max_attribute?: string;
-  window_start_attribute?: string;
-  window_end_attribute?: string;
   map_style?: MapStyle;
   crop?: CropMode;
   scale?: ScaleMode;
+  color_theme?: ColorTheme;
   radius?: number;
   blur?: number;
   opacity?: number;
   floor?: number;
-  height?: number | string;
   show_title?: boolean;
   show_bounds?: boolean;
   map_image_url?: string;

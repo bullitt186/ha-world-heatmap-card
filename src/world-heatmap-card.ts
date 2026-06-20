@@ -88,10 +88,6 @@ export class WorldHeatmapCard extends LitElement {
     if (!this.config) return nothing;
     const stateObj = this._hass?.states[this.config.entity];
     const points = this.getPoints();
-    const height =
-      typeof this.config.height === "number"
-        ? `${this.config.height}px`
-        : String(this.config.height);
     const mapImage = this.config.map_image_url ?? DEFAULT_MAP_IMAGE_URL;
 
     return html`
@@ -102,7 +98,6 @@ export class WorldHeatmapCard extends LitElement {
         <div
           class="map map-style-${this.config.map_style}"
           style=${this.styleText({
-            "--heatmap-height": height,
             "--map-image": `url("${mapImage}")`,
             ...(this.bounds ? worldLayerStyle(this.bounds) : {}),
           })}
@@ -141,6 +136,7 @@ export class WorldHeatmapCard extends LitElement {
 
     const nextBounds = this.renderer.render(this.getPoints(), {
       blur: this.config.blur,
+      colorTheme: this.config.color_theme,
       crop: this.config.crop,
       floor: this.config.floor,
       opacity: this.config.opacity,

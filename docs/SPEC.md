@@ -73,7 +73,6 @@ radius: 24
 blur: 14
 opacity: 0.16
 floor: 0.32
-height: 360
 ```
 
 Required config:
@@ -84,21 +83,18 @@ Optional config:
 
 - `title`: optional card title. Default: no visible title in normal view.
 - `points_attribute`: default `points`.
-- `max_attribute`: default `max`.
-- `window_start_attribute`: default `window_start`.
-- `window_end_attribute`: default `window_end`.
 - `map_style`: `dark`, `muted`, `contrast`, `light`, or `grid`. Default `dark`.
 - `crop`: `threats_xy`, `threats_lat`, `world`, `no_antarctica`, or
   `temperate`. Default `threats_xy`.
 - `scale`: `log`, `sqrt`, or `linear`. Default `log`.
+- `color_theme`: `default`, `reds`, `yellows`, `greens`, `blues`, `oranges`, or
+  `purples`. Default `default`.
 - `radius`: simpleheat point radius in CSS pixels. Default `24`.
 - `blur`: simpleheat blur radius in CSS pixels. Default `14`.
 - `opacity`: simpleheat minimum opacity as a `0.0` to `0.4` float. Default
   `0.16`.
 - `floor`: minimum normalized intensity for visible non-zero points as a `0.0`
   to `0.6` float. Default `0.32`.
-- `height`: CSS height in pixels or CSS length. Default should fit HA sections
-  views cleanly, around `320px` to `380px`.
 - `show_title`: boolean. Default `false`.
 - `show_bounds`: boolean for debugging only. Default `false`.
 - `map_image_url`: optional equirectangular world map image override.
@@ -165,6 +161,9 @@ type: module
 ## Rendering Behavior
 
 - Use a static equirectangular/Plate-Carree world map as the background.
+- The card always fills the width given by the dashboard; height is derived
+  from the crop bounds' aspect ratio via CSS `aspect-ratio`, never configured
+  directly, so the map is never stretched.
 - Use `simpleheat` or an equivalent canvas implementation for the overlay.
 - Project coordinates with the active crop bounds:
 
@@ -225,7 +224,7 @@ Card editor:
 
 - Expose all config options listed above.
 - Use dropdowns for enum options.
-- Use sliders or numeric inputs for radius, blur, opacity, floor, and height.
+- Use sliders or numeric inputs for radius, blur, opacity, and floor.
 - Validate that `entity` is set.
 - Optionally suggest this card for entities whose attributes include a `points`
   array with `lat`, `lon`, and `value`.

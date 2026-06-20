@@ -19,11 +19,9 @@ export const cardStyles = css`
   .map {
     position: relative;
     width: 100%;
-    height: var(--heatmap-height, 360px);
-    min-height: 180px;
     overflow: hidden;
     background: #111820;
-    aspect-ratio: var(--map-aspect, auto);
+    aspect-ratio: var(--map-aspect, 2);
   }
 
   .map::before,
@@ -123,19 +121,11 @@ export const cardStyles = css`
     padding: 16px;
   }
 
-  .field {
-    display: grid;
-    gap: 4px;
-  }
-
-  label {
+  .switch-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     color: var(--secondary-text-color);
-    font-size: 12px;
-  }
-
-  input,
-  select {
-    width: 100%;
-    box-sizing: border-box;
+    font-size: 14px;
   }
 `;
