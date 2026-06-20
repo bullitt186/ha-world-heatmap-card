@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>World Heatmap Card Demo</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: #0b0d10;
+        color: #e8edf2;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+      }
+
+      main {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <world-heatmap-card></world-heatmap-card>
+    </main>
+    <script type="module" src="/src/world-heatmap-card.ts"></script>
+    <script type="module">
+      const data = await fetch("/demo/sample-data.json").then((response) =>
+        response.json(),
+      );
+      const card = document.querySelector("world-heatmap-card");
+      card.setConfig({
+        type: "custom:world-heatmap-card",
+        entity: "sensor.demo_heatmap",
+        map_style: "dark",
+        crop: "threats_xy",
+        scale: "log",
+        radius: 24,
+        blur: 14,
+        opacity: 0.16,
+        floor: 0.32,
+        height: 420,
+        show_bounds: true,
+      });
+      card.hass = {
+        states: {
+          "sensor.demo_heatmap": {
+            state: String(data.total_rows),
+            attributes: data,
+          },
+        },
+      };
+    </script>
+  </body>
+</html>

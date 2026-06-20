@@ -1,0 +1,30 @@
+{
+  "name": "ha-world-heatmap-card",
+  "version": "0.1.0",
+  "description": "Reusable Home Assistant world heatmap custom card",
+  "type": "module",
+  "main": "dist/world-heatmap-card.js",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite --host 0.0.0.0",
+    "preview": "vite preview --host 0.0.0.0",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "home-assistant",
+    "custom-card",
+    "lovelace",
+    "heatmap",
+    "world-map"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "lit": "^3.3.1",
+    "simpleheat": "^0.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  }
+}

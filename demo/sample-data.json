@@ -1,0 +1,73 @@
+{
+  "source": "demo.sample",
+  "site_id": "demo",
+  "site_name": "Demo",
+  "window": "monthly",
+  "window_start": 1779397184,
+  "window_end": 1781989184,
+  "total_rows": 667,
+  "fetched_rows": 667,
+  "skipped_rows": 5,
+  "max": 435,
+  "points": [
+    {
+      "lat": 38,
+      "lon": -97,
+      "country": "US",
+      "value": 435,
+      "top_signatures": [["Demo high-volume source", 389]],
+      "top_activities": [["Misc Attack", 390]],
+      "severities": { "1": 434, "4": 1 },
+      "latest_time": 1781979891
+    },
+    {
+      "lat": 54,
+      "lon": -2,
+      "country": "GB",
+      "value": 66
+    },
+    {
+      "lat": 51,
+      "lon": 9,
+      "country": "DE",
+      "value": 25
+    },
+    {
+      "lat": 35,
+      "lon": 105,
+      "country": "CN",
+      "value": 23,
+      "top_signatures": [["Demo China source", 10]]
+    },
+    {
+      "lat": 20,
+      "lon": 77,
+      "country": "IN",
+      "value": 10
+    },
+    {
+      "lat": -5,
+      "lon": 120,
+      "country": "ID",
+      "value": 9
+    },
+    {
+      "lat": -34,
+      "lon": -64,
+      "country": "AR",
+      "value": 6
+    },
+    {
+      "lat": 36,
+      "lon": 138,
+      "country": "JP",
+      "value": 5
+    },
+    {
+      "lat": -41,
+      "lon": 174,
+      "country": "NZ",
+      "value": 1
+    }
+  ]
+}
