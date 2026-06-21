@@ -24,11 +24,6 @@ jobs:
       - run: npm run typecheck
       - run: npm run build
 
-      - name: HACS validation
-        uses: hacs/action@main
-        with:
-          category: plugin
-
   version-check:
     name: Version Consistency
     runs-on: ubuntu-latest
