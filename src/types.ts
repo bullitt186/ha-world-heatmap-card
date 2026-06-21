@@ -1,8 +1,8 @@
 export type MapStyle = "dark" | "muted" | "contrast" | "light" | "grid";
 
 export type CropMode =
-  | "threats_xy"
-  | "threats_lat"
+  | "tight_xy"
+  | "tight_lat"
   | "world"
   | "no_antarctica"
   | "temperate";

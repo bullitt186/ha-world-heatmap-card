@@ -7,7 +7,7 @@ import type { HomeAssistantLike, WorldHeatmapCardConfig } from "./types";
 
 const SELECT_OPTIONS = {
   map_style: ["dark", "muted", "contrast", "light", "grid"],
-  crop: ["threats_xy", "threats_lat", "world", "no_antarctica", "temperate"],
+  crop: ["tight_xy", "tight_lat", "world", "no_antarctica", "temperate"],
   scale: ["log", "sqrt", "linear"],
   color_theme: ["default", "reds", "yellows", "greens", "blues", "oranges", "purples"],
 };

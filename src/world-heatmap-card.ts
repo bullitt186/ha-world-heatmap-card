@@ -57,7 +57,7 @@ export class WorldHeatmapCard extends LitElement {
     return {
       type: "custom:world-heatmap-card",
       map_style: "dark",
-      crop: "threats_xy",
+      crop: "tight_xy",
       scale: "log",
     };
   }

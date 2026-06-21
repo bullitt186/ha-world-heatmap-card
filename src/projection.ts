@@ -24,7 +24,7 @@ export function cropBounds(points: HeatmapPoint[], mode: CropMode): CropBounds {
 
   const latPadding = 7;
   const lonPadding = 12;
-  const cropLongitude = mode === "threats_xy";
+  const cropLongitude = mode === "tight_xy";
 
   return {
     north: Math.min(85, Math.max(...latitudes) + latPadding),

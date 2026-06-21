@@ -13,6 +13,11 @@ The card reads a single entity whose attributes contain a `points` array of
 not call any backend service or fetch its own data; any integration that
 exposes points this way works.
 
+It was designed to be used alongside
+[ha-omada-open-api](https://github.com/bullitt186/ha-omada-open-api) to
+visualize a heatmap of network threats by origin country, but works with any
+entity exposing geographic points.
+
 | `dark` (default) | `muted` | `light` |
 |:---:|:---:|:---:|
 | ![dark map style](docs/screenshots/map-style-dark.png) | ![muted map style](docs/screenshots/map-style-muted.png) | ![light map style](docs/screenshots/map-style-light.png) |
@@ -74,7 +79,7 @@ visual editor — open it from the dashboard's card picker, no YAML required.
 | title | string | | Card title, shown when `show_title` is `true`. |
 | points_attribute | string | `points` | Name of the entity attribute holding the points array. |
 | map_style | string | `dark` | Background map filter, see [Map styles](#map-styles). |
-| crop | string | `threats_xy` | How tightly the map crops to the data, see [Crop modes](#crop-modes). |
+| crop | string | `tight_xy` | How tightly the map crops to the data, see [Crop modes](#crop-modes). |
 | scale | string | `log` | Intensity scaling applied to point values: `log`, `sqrt`, or `linear`. |
 | color_theme | string | `default` | Heat gradient palette, see [Color themes](#color-themes). |
 | radius | number | `24` | Heat point radius in pixels. |
@@ -99,8 +104,8 @@ visual editor — open it from the dashboard's card picker, no YAML required.
 
 | Name | Description |
 |------|-------------|
-| `threats_xy` | Crop tightly around the data on both axes (default). |
-| `threats_lat` | Crop tightly on latitude only; show the full longitude range. |
+| `tight_xy` | Crop tightly around the data on both axes (default). |
+| `tight_lat` | Crop tightly on latitude only; show the full longitude range. |
 | `world` | No crop — the full globe. |
 | `no_antarctica` | Full globe, Antarctica trimmed off. |
 | `temperate` | Temperate-latitude band only. |
@@ -142,6 +147,10 @@ by [Strebe](https://commons.wikimedia.org/wiki/user:Strebe), licensed under
 [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). It's bundled
 unmodified; override it per-card with `map_image_url` if you need a different
 license.
+
+Heat point rendering uses [simpleheat](https://github.com/mourner/simpleheat)
+by [Vladimir Agafonkin](https://github.com/mourner), licensed under
+[BSD-2-Clause](https://github.com/mourner/simpleheat/blob/gh-pages/LICENSE).
 
 ## Development
 

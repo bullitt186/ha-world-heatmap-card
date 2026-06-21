@@ -1,8 +1,10 @@
-## What's New in v0.1.0
+## What's New in v0.2.0
 
-Initial public release.
+### Breaking Changes
 
-- Data-source-agnostic Lovelace heatmap card: reads `points` (`lat`, `lon`, `value`) from any entity attribute and renders them over a bundled equirectangular world map.
-- Visual editor using native Home Assistant selectors — no YAML required for configuration.
-- Map styles (`dark`, `muted`, `contrast`, `light`, `grid`), crop modes, and color themes.
-- Bundled default world map image with attribution.
+- Renamed crop modes `threats_xy` → `tight_xy` and `threats_lat` → `tight_lat`. The old names were specific to a threat-monitoring use case; the new names describe the actual behavior (crop tightly around the data). Update `crop:` in any existing card YAML.
+
+### Other Changes
+
+- README now credits [simpleheat](https://github.com/mourner/simpleheat) (BSD-2-Clause) for heat point rendering.
+- README notes the card was designed to pair with [ha-omada-open-api](https://github.com/bullitt186/ha-omada-open-api) for a network-threats-by-country heatmap, while remaining usable with any entity exposing geographic points.

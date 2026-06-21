@@ -1,6 +1,6 @@
 {
   "name": "ha-world-heatmap-card",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Reusable Home Assistant world heatmap custom card",
   "type": "module",
   "main": "dist/world-heatmap-card.js",

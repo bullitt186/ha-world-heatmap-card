@@ -5,7 +5,7 @@ import type { WorldHeatmapCardConfig } from "./types";
 export const DEFAULT_CONFIG = {
   points_attribute: "points",
   map_style: "dark",
-  crop: "threats_xy",
+  crop: "tight_xy",
   scale: "log",
   color_theme: "default",
   radius: 24,
