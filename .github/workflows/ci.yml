@@ -16,3 +16,12 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm run build
+
+  validate:
+    name: HACS validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hacs/action@main
+        with:
+          category: plugin

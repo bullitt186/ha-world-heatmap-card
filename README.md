@@ -1,5 +1,9 @@
 # World Heatmap Card
 
+[![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
+[![GitHub Release](https://img.shields.io/github/release/bullitt186/ha-world-heatmap-card.svg?style=for-the-badge)](https://github.com/bullitt186/ha-world-heatmap-card/releases)
+[![License](https://img.shields.io/github/license/bullitt186/ha-world-heatmap-card.svg?style=for-the-badge)](LICENSE)
+
 A data-source-agnostic [Home Assistant](https://www.home-assistant.io/) Lovelace
 card that renders geographic activity as a canvas heatmap over a static world
 map.
@@ -121,19 +125,14 @@ visual editor — open it from the dashboard's card picker, no YAML required.
     {
       "lat": 35,
       "lon": 105,
-      "value": 23,
-      "country": "CN"
+      "value": 23
     }
-  ],
-  "max": 435,
-  "window_start": 1779397184,
-  "window_end": 1781989184,
-  "total_rows": 667
+  ]
 }
 ```
 
-Only `lat`, `lon`, and `value` are read; other fields are ignored. See
-[docs/SPEC.md](docs/SPEC.md) for the full specification.
+Only `lat`, `lon`, and `value` are read per point; any other fields (on the
+points or alongside the array) are ignored.
 
 ## Credits
 
