@@ -178,3 +178,9 @@ this `dist/` directory into Home Assistant. Use this dashboard resource:
 url: /local/ha-world-heatmap-card/world-heatmap-card.js
 type: module
 ```
+
+## Contributing
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before you start: features begin with an issue, and every
+pull request is reviewed against the Definition of Done there. What belongs in the project is in
+[docs/SCOPE.md](docs/SCOPE.md); coding agents follow [AGENTS.md](AGENTS.md).
