@@ -1,0 +1,6 @@
+# repo-kit settings for PR hygiene (all optional). See https://github.com/bullitt186/repo-kit
+# test_paths:          # globs of test files, replaces the defaults
+#   - tests/**
+# exempt_paths:        # globs that are not code, added to the defaults
+#   - examples/**
+# changelog: CHANGELOG.md   # or "none"
