@@ -2,7 +2,9 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import type { HeatmapPoint } from "../src/types";
 
-// simpleheat draws on a canvas; the fake records what the renderer passes to it.
+// simpleheat draws on a canvas; the fake records what the renderer passes to it. Like simpleheat
+// 1.x it is a class (calling it without `new` throws) and has no resize(); the contract with the
+// real library is checked in simpleheat-contract.test.ts.
 const heat = vi.hoisted(() => {
   const calls: {
     data?: [number, number, number][];
@@ -11,17 +13,31 @@ const heat = vi.hoisted(() => {
     radius?: [number, number];
     gradient?: Record<number, string>;
   } = {};
-  const instance = {
-    resize: () => instance,
-    data: (points: [number, number, number][]) => ((calls.data = points), instance),
-    max: (value: number) => ((calls.max = value), instance),
-    radius: (radius: number, blur: number) => ((calls.radius = [radius, blur]), instance),
-    gradient: (stops: Record<number, string>) => ((calls.gradient = stops), instance),
-    draw: (opacity: number) => ((calls.draw = opacity), instance),
-  };
-  return { calls, instance };
+  class FakeSimpleHeat {
+    data(points: [number, number, number][]) {
+      calls.data = points;
+      return this;
+    }
+    max(value: number) {
+      calls.max = value;
+      return this;
+    }
+    radius(radius: number, blur: number) {
+      calls.radius = [radius, blur];
+      return this;
+    }
+    gradient(stops: Record<number, string>) {
+      calls.gradient = stops;
+      return this;
+    }
+    draw(opacity: number) {
+      calls.draw = opacity;
+      return this;
+    }
+  }
+  return { calls, FakeSimpleHeat };
 });
-vi.mock("simpleheat", () => ({ default: () => heat.instance }));
+vi.mock("simpleheat", () => ({ default: heat.FakeSimpleHeat }));
 
 const { HeatmapRenderer } = await import("../src/heatmap-renderer");
 

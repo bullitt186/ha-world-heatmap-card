@@ -1,4 +1,4 @@
-import simpleheat, { type SimpleHeat } from "simpleheat";
+import SimpleHeat from "simpleheat";
 
 import { cropBounds, projectPoint } from "./projection";
 import type { ColorTheme, CropBounds, CropMode, HeatmapPoint, ScaleMode } from "./types";
@@ -57,8 +57,8 @@ export class HeatmapRenderer {
       return [x, y, boosted * maxScaledValue];
     });
 
-    this.heat ??= simpleheat(this.canvas);
-    this.heat.resize();
+    // simpleheat 1.x reads the canvas size on every draw, so a resized canvas needs no extra call.
+    this.heat ??= new SimpleHeat(this.canvas);
     this.heat
       .data(heatPoints)
       .max(maxScaledValue)
