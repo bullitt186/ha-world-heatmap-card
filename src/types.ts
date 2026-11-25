@@ -1,22 +1,11 @@
 export type MapStyle = "dark" | "muted" | "contrast" | "light" | "grid";
 
-export type CropMode =
-  | "tight_xy"
-  | "tight_lat"
-  | "world"
-  | "no_antarctica"
-  | "temperate";
+export type CropMode = "tight_xy" | "tight_lat" | "world" | "no_antarctica" | "temperate";
 
 export type ScaleMode = "log" | "sqrt" | "linear";
 
 export type ColorTheme =
-  | "default"
-  | "reds"
-  | "yellows"
-  | "greens"
-  | "blues"
-  | "oranges"
-  | "purples";
+  "default" | "reds" | "yellows" | "greens" | "blues" | "oranges" | "purples";
 
 export interface WorldHeatmapCardConfig {
   type: string;

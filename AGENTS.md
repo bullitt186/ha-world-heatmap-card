@@ -163,8 +163,8 @@ The build output `dist/world-heatmap-card.js` is not committed; the release work
 | Task | Command |
 |---|---|
 | Install / set up | Node.js LTS and `npm ci` |
-| Fast check (before every commit, also the stop hook) | `npm run typecheck && npm run build` |
-| Full check | same as the fast check; there are no tests yet ([#1](https://github.com/bullitt186/ha-world-heatmap-card/issues/1)) |
+| Fast check (before every commit, also the stop hook) | `npm run typecheck && npm run lint && npm test && npm run build` (tsc, oxlint and Prettier in check mode, vitest, vite build) |
+| Full check | same as the fast check; `npm run test:coverage` adds the coverage report CI prints. `npm run format` rewrites the formatting |
 | Mutation testing of changed code | not set up: there are no tests to measure yet ([#1](https://github.com/bullitt186/ha-world-heatmap-card/issues/1)) |
 
 `npm run dev` serves the card locally for manual checks.
@@ -175,6 +175,11 @@ The build output `dist/world-heatmap-card.js` is not committed; the release work
   ([README](README.md#data-shape), [ADR-0002](docs/adr/0002-generic-points-contract-and-bundled-renderer.md)),
   never on a particular integration.
 - `simpleheat` stays bundled into the card; never load code or the map from a CDN at runtime.
+- Lint is oxlint (`.oxlintrc.json`) rather than ESLint: TypeScript 7 ships no JavaScript API, which
+  typescript-eslint needs (it supports TypeScript 7 only from 7.1). Prettier leaves the CSS and
+  HTML inside Lit templates as written (`embeddedLanguageFormatting: off`).
+- Tests (`tests/`, vitest) replace `simpleheat` with a fake that records the points, so they run
+  without a canvas; expected values come from the README options and the equirectangular projection.
 - The map image and the projection use the same equirectangular bounds; keep `overflow: hidden`
   on the map container (lessons in [docs/POC-NOTES.md](docs/POC-NOTES.md)).
 - Configuration option names are a public interface: renaming one is a breaking change with

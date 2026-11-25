@@ -11,12 +11,8 @@ export function cropBounds(points: HeatmapPoint[], mode: CropMode): CropBounds {
     return { north: 70, south: -55, west: -180, east: 180 };
   }
 
-  const latitudes = points
-    .map((point) => point.lat)
-    .filter((lat) => Number.isFinite(lat));
-  const longitudes = points
-    .map((point) => point.lon)
-    .filter((lon) => Number.isFinite(lon));
+  const latitudes = points.map((point) => point.lat).filter((lat) => Number.isFinite(lat));
+  const longitudes = points.map((point) => point.lon).filter((lon) => Number.isFinite(lon));
 
   if (!latitudes.length || !longitudes.length) {
     return { north: 85, south: -60, west: -180, east: 180 };
@@ -29,12 +25,8 @@ export function cropBounds(points: HeatmapPoint[], mode: CropMode): CropBounds {
   return {
     north: Math.min(85, Math.max(...latitudes) + latPadding),
     south: Math.max(-60, Math.min(...latitudes) - latPadding),
-    west: cropLongitude
-      ? Math.max(-180, Math.min(...longitudes) - lonPadding)
-      : -180,
-    east: cropLongitude
-      ? Math.min(180, Math.max(...longitudes) + lonPadding)
-      : 180,
+    west: cropLongitude ? Math.max(-180, Math.min(...longitudes) - lonPadding) : -180,
+    east: cropLongitude ? Math.min(180, Math.max(...longitudes) + lonPadding) : 180,
   };
 }
 

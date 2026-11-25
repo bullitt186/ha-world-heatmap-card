@@ -64,8 +64,7 @@ export class WorldHeatmapCardEditor extends LitElement {
         .selector=${selector}
         .value=${this.config?.[key] ?? ""}
         .label=${label}
-        @value-changed=${(event: CustomEvent) =>
-          this.updateConfig(key, event.detail.value)}
+        @value-changed=${(event: CustomEvent) => this.updateConfig(key, event.detail.value)}
       ></ha-selector>
     `;
   }
