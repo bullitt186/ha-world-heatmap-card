@@ -8,3 +8,5 @@ dist/
 .claude/settings.local.json
 .claude/worktrees/
 coverage/
+.stryker-tmp/
+reports/

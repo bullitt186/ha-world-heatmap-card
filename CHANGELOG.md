@@ -17,6 +17,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions: [Sem
   config defaults and the point scaling; oxlint and Prettier check the code. CI and the release
   quality gate run them, and the workflows have read-only token permissions and pinned actions.
   The source was reformatted by Prettier; the built card is byte-for-byte the same.
+- Contributing: mutation testing with Stryker, `npm run mutate` for changed files and a weekly run
+  that reports the score without blocking pull requests. Nothing changes for users of the card.
 
 ## [0.2.0] - 2026-06-21
 

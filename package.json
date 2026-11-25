@@ -12,7 +12,9 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "lint": "oxlint --deny-warnings src tests && prettier --check src tests",
-    "format": "prettier --write src tests"
+    "format": "prettier --write src tests",
+    "mutate": "bash scripts/mutate.sh",
+    "mutate:all": "stryker run"
   },
   "keywords": [
     "home-assistant",
@@ -27,6 +29,8 @@
     "simpleheat": "^0.4.0"
   },
   "devDependencies": {
+    "@stryker-mutator/core": "10.1.1",
+    "@stryker-mutator/vitest-runner": "10.1.1",
     "@types/node": "^26.6.6",
     "@vitest/coverage-v8": "5.1.0",
     "oxlint": "1.93.0",
