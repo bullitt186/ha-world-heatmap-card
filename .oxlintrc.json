@@ -1,0 +1,17 @@
+{
+  // oxlint: ESLint's rules for TypeScript without the TypeScript JS API, which
+  // TypeScript 7 no longer ships (typescript-eslint supports it from 7.1 only).
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error"
+  },
+  "plugins": ["typescript", "unicorn", "oxc", "import", "vitest"],
+  "rules": {
+    // The card imports the editor module only to register its custom element.
+    "import/no-unassigned-import": ["error", { "allow": ["./world-heatmap-card-editor"] }],
+    // `_hass` is the Lit/Home Assistant convention for the private hass state.
+    "no-underscore-dangle": ["error", { "allow": ["_hass"], "allowAfterThis": true }]
+  },
+  "ignorePatterns": ["dist/**"]
+}

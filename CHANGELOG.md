@@ -13,6 +13,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions: [Sem
   feature work starts from an issue the maintainer has labelled `accepted`. New checks on pull
   requests: `PR hygiene`, a secret scan and dependency review; Dependabot proposes npm and GitHub
   Actions updates weekly. Nothing changes for users of the card.
+- Contributing: unit tests (vitest) for the crop bounds, the equirectangular projection, the
+  config defaults and the point scaling; oxlint and Prettier check the code. CI and the release
+  quality gate run them, and the workflows have read-only token permissions and pinned actions.
+  The source was reformatted by Prettier; the built card is byte-for-byte the same.
 
 ## [0.2.0] - 2026-06-21
 

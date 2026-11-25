@@ -4,12 +4,7 @@ import { state } from "lit/decorators.js";
 import { DEFAULT_MAP_IMAGE_URL, normalizeConfig } from "./defaults";
 import { HeatmapRenderer } from "./heatmap-renderer";
 import { cardStyles } from "./styles";
-import type {
-  CropBounds,
-  HeatmapPoint,
-  HomeAssistantLike,
-  WorldHeatmapCardConfig,
-} from "./types";
+import type { CropBounds, HeatmapPoint, HomeAssistantLike, WorldHeatmapCardConfig } from "./types";
 import "./world-heatmap-card-editor";
 import { worldLayerStyle } from "./projection";
 
@@ -92,9 +87,11 @@ export class WorldHeatmapCard extends LitElement {
 
     return html`
       <ha-card>
-        ${this.config.show_title && this.config.title
-          ? html`<div class="title">${this.config.title}</div>`
-          : nothing}
+        ${
+          this.config.show_title && this.config.title
+            ? html`<div class="title">${this.config.title}</div>`
+            : nothing
+        }
         <div
           class="map map-style-${this.config.map_style}"
           style=${this.styleText({
@@ -103,21 +100,27 @@ export class WorldHeatmapCard extends LitElement {
           })}
         >
           <canvas></canvas>
-          ${!stateObj
-            ? html`<div class="message">Entity not found: ${this.config.entity}</div>`
-            : nothing}
-          ${stateObj && !points.length
-            ? html`<div class="message">No heatmap points available</div>`
-            : nothing}
+          ${
+            !stateObj
+              ? html`<div class="message">Entity not found: ${this.config.entity}</div>`
+              : nothing
+          }
+          ${
+            stateObj && !points.length
+              ? html`<div class="message">No heatmap points available</div>`
+              : nothing
+          }
         </div>
-        ${this.config.show_bounds && this.bounds
-          ? html`<div class="bounds">
+        ${
+          this.config.show_bounds && this.bounds
+            ? html`<div class="bounds">
               Bounds: ${this.bounds.south.toFixed(1)} to
               ${this.bounds.north.toFixed(1)} lat,
               ${this.bounds.west.toFixed(1)} to ${this.bounds.east.toFixed(1)}
               lon
             </div>`
-          : nothing}
+            : nothing
+        }
       </ha-card>
     `;
   }
@@ -162,9 +165,7 @@ export class WorldHeatmapCard extends LitElement {
       }))
       .filter(
         (point) =>
-          Number.isFinite(point.lat) &&
-          Number.isFinite(point.lon) &&
-          Number.isFinite(point.value),
+          Number.isFinite(point.lat) && Number.isFinite(point.lon) && Number.isFinite(point.value),
       ) as HeatmapPoint[];
   }
 
