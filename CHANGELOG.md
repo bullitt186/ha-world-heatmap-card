@@ -7,6 +7,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions: [Sem
 
 ### Changed
 
+- The heatmap is drawn with simpleheat 1.0 (was 0.4). It reads the canvas size on every draw and
+  skips drawing while the card is hidden, instead of failing on a zero-sized canvas. The map looks
+  the same.
 - Contributing: one setup for people and coding agents from
   [repo-kit](https://github.com/bullitt186/repo-kit). `CONTRIBUTING.md` has the Definition of Done
   every pull request is reviewed against, `docs/SCOPE.md` says what belongs in the project, and
