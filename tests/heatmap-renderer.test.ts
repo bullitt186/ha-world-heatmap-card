@@ -4,13 +4,19 @@ import type { HeatmapPoint } from "../src/types";
 
 // simpleheat draws on a canvas; the fake records what the renderer passes to it.
 const heat = vi.hoisted(() => {
-  const calls: { data?: [number, number, number][]; max?: number; draw?: number } = {};
+  const calls: {
+    data?: [number, number, number][];
+    max?: number;
+    draw?: number;
+    radius?: [number, number];
+    gradient?: Record<number, string>;
+  } = {};
   const instance = {
     resize: () => instance,
     data: (points: [number, number, number][]) => ((calls.data = points), instance),
     max: (value: number) => ((calls.max = value), instance),
-    radius: () => instance,
-    gradient: () => instance,
+    radius: (radius: number, blur: number) => ((calls.radius = [radius, blur]), instance),
+    gradient: (stops: Record<number, string>) => ((calls.gradient = stops), instance),
     draw: (opacity: number) => ((calls.draw = opacity), instance),
   };
   return { calls, instance };
@@ -89,4 +95,41 @@ describe("HeatmapRenderer point scaling", () => {
     render(points, { floor: -1 });
     expect(heat.calls.data?.[1][2]).toBeCloseTo(0.0001, 6);
   });
+});
+
+// Brightness of a #rrggbb colour (0..765), to check "pale to deep" in the README themes.
+const brightness = (hex: string) =>
+  [1, 3, 5].reduce((sum, i) => sum + Number.parseInt(hex.slice(i, i + 2), 16), 0);
+
+describe("HeatmapRenderer drawing options", () => {
+  it("passes radius, blur and opacity to simpleheat", () => {
+    render([{ lat: 0, lon: 0, value: 1 }], { radius: 30, blur: 9, opacity: 0.3 });
+    expect(heat.calls.radius).toEqual([30, 9]);
+    expect(heat.calls.draw).toBe(0.3);
+  });
+
+  it("uses the default theme from blue over green and yellow to red", () => {
+    render([{ lat: 0, lon: 0, value: 1 }], { colorTheme: "default" });
+    expect(heat.calls.gradient).toEqual({
+      0.2: "#2b7bff",
+      0.45: "#39d98a",
+      0.7: "#ffe15c",
+      1.0: "#ff4d4d",
+    });
+  });
+
+  it.each(["reds", "yellows", "greens", "blues", "oranges", "purples"] as const)(
+    "%s goes from pale to deep",
+    (colorTheme) => {
+      render([{ lat: 0, lon: 0, value: 1 }], { colorTheme });
+      const stops = heat.calls.gradient ?? {};
+      // Numeric keys: "1" is an array index and comes first in Object.keys.
+      const offsets = [0.2, 0.45, 0.7, 1];
+      expect(Object.keys(stops).map(Number)).toHaveLength(4);
+      const levels = offsets.map((offset) => brightness(stops[offset]));
+      for (let i = 1; i < levels.length; i++) {
+        expect(levels[i]).toBeLessThan(levels[i - 1]);
+      }
+    },
+  );
 });

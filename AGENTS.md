@@ -165,7 +165,7 @@ The build output `dist/world-heatmap-card.js` is not committed; the release work
 | Install / set up | Node.js LTS and `npm ci` |
 | Fast check (before every commit, also the stop hook) | `npm run typecheck && npm run lint && npm test && npm run build` (tsc, oxlint and Prettier in check mode, vitest, vite build) |
 | Full check | same as the fast check; `npm run test:coverage` adds the coverage report CI prints. `npm run format` rewrites the formatting |
-| Mutation testing of changed code | not set up: there are no tests to measure yet ([#1](https://github.com/bullitt186/ha-world-heatmap-card/issues/1)) |
+| Mutation testing of changed code | `npm run mutate` (Stryker on the `src/` files changed against `origin/main`; report in `reports/mutation/mutation.html`; `npm run mutate:all` for all of `src/`) |
 
 `npm run dev` serves the card locally for manual checks.
 
@@ -180,6 +180,9 @@ The build output `dist/world-heatmap-card.js` is not committed; the release work
   HTML inside Lit templates as written (`embeddedLanguageFormatting: off`).
 - Tests (`tests/`, vitest) replace `simpleheat` with a fake that records the points, so they run
   without a canvas; expected values come from the README options and the equirectangular projection.
+- Stryker (`stryker.config.json`) skips its tsconfig rewrite (`tsconfigFile` points to a file that
+  does not exist): the rewrite needs the TypeScript JavaScript API, and `tsconfig.json` has nothing
+  to rewrite. The weekly `Mutation testing` workflow only reports the score.
 - The map image and the projection use the same equirectangular bounds; keep `overflow: hidden`
   on the map container (lessons in [docs/POC-NOTES.md](docs/POC-NOTES.md)).
 - Configuration option names are a public interface: renaming one is a breaking change with

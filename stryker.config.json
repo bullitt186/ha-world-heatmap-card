@@ -1,0 +1,28 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "_comment": "Mutation testing (repo-kit CI standard): npm run mutate (changed files), npm run mutate:all (weekly workflow). Reporting only, never blocks.",
+  "testRunner": "vitest",
+  "plugins": [
+    "@stryker-mutator/vitest-runner"
+  ],
+  "mutate": [
+    "src/**/*.ts",
+    "!src/**/*.d.ts",
+    "!src/styles.ts"
+  ],
+  "reporters": [
+    "clear-text",
+    "progress",
+    "html",
+    "json"
+  ],
+  "thresholds": {
+    "high": 80,
+    "low": 60,
+    "break": null
+  },
+  "concurrency": 2,
+  "tempDirName": ".stryker-tmp",
+  "_comment_tsconfig": "tsconfig.json has no extends or references to rewrite, and Stryker's rewrite needs the TypeScript JS API, which TypeScript 7 does not ship: point it at a file that does not exist so the rewrite is skipped.",
+  "tsconfigFile": "tsconfig.stryker-skip.json"
+}
