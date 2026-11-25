@@ -20,6 +20,12 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions: [Sem
 - Contributing: mutation testing with Stryker, `npm run mutate` for changed files and a weekly run
   that reports the score without blocking pull requests. Nothing changes for users of the card.
 
+### Security
+
+- Development dependencies: `package.json` `overrides` lift `qs` to 6.17 and `minimatch` to 11, which
+  Stryker pulls in transitively at versions with known advisories. Dependabot could not update them
+  because their parents pin exact versions. Nothing changes for users of the card.
+
 ## [0.2.0] - 2026-06-21
 
 ### Changed
